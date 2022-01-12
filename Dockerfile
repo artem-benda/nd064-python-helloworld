@@ -1,15 +1,9 @@
-FROM golang:alpine
-
+FROM python:3.8
 LABEL maintainer="Artem I Benda"
 
-WORKDIR /go/src/app
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
 
-COPY main.go /go/src/app
-
-RUN go mod init
-
-RUN go build -o helloworld
-
-EXPOSE 6111
-
-CMD ["./helloworld"]
+# command to run on container start
+CMD [ "python", "app.py" ]
