@@ -1,0 +1,20 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: nginx-alpine-staging
+    namespace: argocd
+  spec:
+    destination:
+      namespace: default
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm
+      repoURL: https://github.com/artem-benda/nd064-python-helloworld
+      targetRevision: HEAD
+    syncPolicy: {}
